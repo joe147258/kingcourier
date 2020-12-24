@@ -12,8 +12,14 @@ public final class ConfigManager {
                 // Load config / user file into memory..?
                 return;
             } else {
-                //check for user files and appsettings
-
+                //create user file and app settings.
+                File newDir = new File(DIRECTORY_PATH);
+                newDir.mkdirs();
+                if(!new File(APP_SETTINGS_PATH).exists()) {
+                    System.out.println(String.format("App settings cannot be found. Import one by moving an " +
+                            "appsettings.json into {0}. Type :r to reload after an import" +
+                            "or :n to generate a new one.", DIRECTORY_PATH));
+                }
             }
 
     }
