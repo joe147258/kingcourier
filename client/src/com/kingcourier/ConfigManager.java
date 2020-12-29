@@ -1,31 +1,32 @@
 package com.kingcourier;
 import java.io.*;
+import java.util.Scanner;
 
 public final class ConfigManager {
 
     private static final String DIRECTORY_PATH = "C:\\kingcourier";
-    private static final String USER_FILE_PATH = DIRECTORY_PATH + "\\userconfig.json";
+    private static final String USER_FILE_PATH = DIRECTORY_PATH + "\\userfile.json";
     private static final String APP_SETTINGS_PATH = DIRECTORY_PATH + "\\appsettings.json";
 
     public static void initConfig() {
-            if(directoryExists()) {
-                // Load config / user file into memory..?
-                return;
-            } else {
-                //create user file and app settings.
-                File newDir = new File(DIRECTORY_PATH);
-                newDir.mkdirs();
-                if(!new File(APP_SETTINGS_PATH).exists()) {
-                    System.out.println(String.format("App settings cannot be found. Import one by moving an " +
-                            "appsettings.json into {0}. Type :r to reload after an import" +
-                            "or :n to generate a new one.", DIRECTORY_PATH));
-                }
-            }
-
+        if(directoryExists()) {
+            //TODO: Load user file into memory
+        } else {
+            File newDir = new File(DIRECTORY_PATH);
+            newDir.mkdirs();
+        }
+        if(!new File(USER_FILE_PATH).exists()) {
+            System.out.println("Userfile cannot be found. Type :lo to login or :re to register.");
+            UserInput.checkUserInput(UserInput.input.nextLine());
+        } else {
+            //check if it is compatable
+        }
+        if(!new File(APP_SETTINGS_PATH).exists()) {
+            //create new appsettings
+        }
     }
 
-    private static Boolean directoryExists()
-    {
+    private static Boolean directoryExists() {
         File f = new File(DIRECTORY_PATH);
         if (f.exists() && f.isDirectory()) {
             return true;
