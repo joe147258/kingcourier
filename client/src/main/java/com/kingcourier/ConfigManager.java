@@ -15,10 +15,11 @@ public final class ConfigManager {
         }
 
         if(!new File(USER_FILE_PATH).exists()) {
-            System.out.println("userfile.json cannot be found. Type :re to register. " +
-                    "If you lose this file, you will have to register again. If you have a userfile.json "  +
-                    "please add it to: " + DIRECTORY_PATH + ". This file should be kept private.");
-            UserInput.checkUserInput(UserInput.input.nextLine());
+            System.out.println("userfile.json cannot be found. Your must now register an account. \n" +
+                    "A new userfile.json will be generated. If you lose this file, you will have to register again. \n" +
+                    "If you have a userfile.json please add it to: " + DIRECTORY_PATH + " and relaunch." +
+                    " This file should be kept private.");
+            Registration.registerUser();
         } else {
             //check if it is compatable and load into memory
         }
