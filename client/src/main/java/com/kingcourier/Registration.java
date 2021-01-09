@@ -42,6 +42,11 @@ public class Registration {
                     params.add(new BasicNameValuePair("publicKey", stringPublicKey));
                     String signUpResult = RequestUtilities.sendPostRequestAndReturnResponse(post, params);
                     System.out.println(signUpResult);
+                    if(signUpResult.equals("Success")) {
+                        // write to a userfile.json
+                    } else {
+                        System.out.println("Something went wrong!");
+                    }
                     //TODO write to json new user and be able to log in / authenticate
                     break;
                 } else {

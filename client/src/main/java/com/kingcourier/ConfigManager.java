@@ -15,7 +15,7 @@ public final class ConfigManager {
         }
 
         if(!new File(USER_FILE_PATH).exists()) {
-            System.out.println("userfile.json cannot be found. Your must now register an account. \n" +
+            System.out.println("userfile.json cannot be found. You must now register an account. \n" +
                     "A new userfile.json will be generated. If you lose this file, you will have to register again. \n" +
                     "If you have a userfile.json please add it to: " + DIRECTORY_PATH + " and relaunch." +
                     " This file should be kept private.");
