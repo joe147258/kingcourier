@@ -9,18 +9,20 @@ public final class ConfigManager {
     private static final String APP_SETTINGS_PATH = DIRECTORY_PATH + "\\appsettings.json";
 
     public static void initConfig() {
-        if(directoryExists()) {
-            //TODO: Load user file into memory
-        } else {
+        if(!directoryExists()) {
             File newDir = new File(DIRECTORY_PATH);
             newDir.mkdirs();
         }
+
         if(!new File(USER_FILE_PATH).exists()) {
-            System.out.println("Userfile cannot be found. Type :lo to login or :re to register.");
+            System.out.println("userfile.json cannot be found. Type :re to register. " +
+                    "If you lose this file, you will have to register again. If you have a userfile.json "  +
+                    "please add it to: " + DIRECTORY_PATH + ". This file should be kept private.");
             UserInput.checkUserInput(UserInput.input.nextLine());
         } else {
-            //check if it is compatable
+            //check if it is compatable and load into memory
         }
+
         if(!new File(APP_SETTINGS_PATH).exists()) {
             //create new appsettings
         }
