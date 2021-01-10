@@ -14,7 +14,7 @@ import java.util.Base64;
 
 public class Registration {
 
-    public static void registerUser() {
+    public static User registerUser() {
         while(true) {
             System.out.println("Please enter a new username:");
             String usernameContender = UserInput.input.nextLine();
@@ -43,17 +43,16 @@ public class Registration {
                     String signUpResult = RequestUtilities.sendPostRequestAndReturnResponse(post, params);
                     System.out.println(signUpResult);
                     if(signUpResult.equals("Success")) {
-                        // write to a userfile.json
+                        return JsonManager.createUserFile(usernameContender, stringPublicKey, stringPrivateKey);
                     } else {
                         System.out.println("Something went wrong!");
+                        return null;
                     }
-                    //TODO write to json new user and be able to log in / authenticate
-                    break;
                 } else {
                     System.out.println("That username is in use.");
                 }
             } catch(NoSuchAlgorithmException | IOException e) {
-                System.out.print("An error has occurred when creating key pair: \n" + e.getMessage());
+                System.out.println("An error has occurred: \n" + e.getMessage());
             }
         }
     }
