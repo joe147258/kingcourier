@@ -36,3 +36,4 @@ target/
 **/mvnw.cmd
 **/mvnw
 **/out
+**/userfile.json
