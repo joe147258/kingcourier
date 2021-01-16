@@ -30,16 +30,17 @@ public class index {
     }
 
     @GetMapping("/auth-token/{username}")
-    public String authenticateUser(@PathVariable String username) {
+    public Object authenticateUser(@PathVariable String username) {
         User user = userRepo.findByUsername(username);
         try {
-            byte[] byteKey = Base64.getDecoder().decode(user.getPublicKey().getBytes(StandardCharsets.UTF_8));
+            byte[] byteKey = Base64.getDecoder().decode(user.getPublicKey().getBytes());
             X509EncodedKeySpec X590publicKey = new X509EncodedKeySpec(byteKey);
             KeyFactory kf = KeyFactory.getInstance("RSA");
             PublicKey pubKey = kf.generatePublic(X590publicKey);
-            Cipher cipher = Cipher.getInstance("RSA/ECB/OAEPWithSHA1AndMGF1Padding");
+            Cipher cipher = Cipher.getInstance("RSA/ECB/OAEPWithSHA-256AndMGF1Padding");
             cipher.init(Cipher.ENCRYPT_MODE, pubKey);
-            return new String(cipher.doFinal(username.getBytes(StandardCharsets.UTF_8)), StandardCharsets.UTF_8);
+            byte[] encryptedBytes = cipher.doFinal(username.getBytes());
+            return encryptedBytes;
         } catch (Exception e) {
             //TODO: Logging
             e.printStackTrace();

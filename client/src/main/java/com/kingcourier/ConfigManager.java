@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public final class ConfigManager {
 
-    public static final String DIRECTORY_PATH = "C:\\kingcourier";
+    public static final String DIRECTORY_PATH = System.getProperty("user.dir");
     public static final String USER_FILE_PATH = DIRECTORY_PATH + "\\userfile.json";
     public static final String APP_SETTINGS_PATH = DIRECTORY_PATH + "\\appsettings.json";
 

@@ -22,9 +22,13 @@ public class RequestUtilities {
     private final static HttpClient httpClient = HttpClients.createDefault();
 
 
-    public static String sendGetRequestAndReturnResponse(HttpGet get) throws IOException {
+    public static String sendGetRequestAndReturnStringResponse(HttpGet get) throws IOException {
         String response;
         return readResponse(httpClient.execute(get));
+    }
+    public static byte[] sendGetRequestAndReturnRawResponse(HttpGet get) throws IOException {
+        byte[] encryptedBytes = httpClient.execute(get).getEntity().getContent().readAllBytes();
+        return encryptedBytes;
     }
 
     public static String sendPostRequestAndReturnResponse

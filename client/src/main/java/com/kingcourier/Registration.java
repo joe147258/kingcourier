@@ -21,7 +21,7 @@ public class Registration {
             try {
                 //TODO: Get this URL from a app settings json file.
                 HttpGet get = new HttpGet("http://localhost:8080/register/check-username/" + usernameContender);
-                String usernameResult = RequestUtilities.sendGetRequestAndReturnResponse(get);
+                String usernameResult = RequestUtilities.sendGetRequestAndReturnStringResponse(get);
                 if(usernameResult.equals("true")) {
                     System.out.println("Username available! Generating key pair...");
                     // Generates a key pair and gets them as a string Base64 encoded. Both are saved to userfile.json.
@@ -32,7 +32,6 @@ public class Registration {
                     byte[] bytePublicKey = keyPair.getPublic().getEncoded();
                     byte[] bytePrivateKey = keyPair.getPrivate().getEncoded();
                     String stringPublicKey = Base64.getEncoder().encodeToString(bytePublicKey);
-                    //TODO: Save to JSON file.
                     String stringPrivateKey = Base64.getEncoder().encodeToString(bytePrivateKey);
 
                     // Sign up account
