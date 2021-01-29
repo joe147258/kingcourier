@@ -1,11 +1,14 @@
 package com.kingcourier.kingcourier.domain;
 
-import com.kingcourier.kingcourier.Utility;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import java.util.UUID;
+import java.security.KeyFactory;
+import java.security.PublicKey;
+import java.security.spec.X509EncodedKeySpec;
+import java.util.Base64;
+import java.util.Date;
+
 
 @Entity
 public class User {
@@ -18,7 +21,6 @@ public class User {
         this.id = id;
         this.username = username;
         this.publicKey = publicKey;
-        this.authCode = UUID.randomUUID();
     }
 
     @Id
@@ -28,15 +30,16 @@ public class User {
 
     @Column(length=2048)
     private String publicKey;
+    
+    private String AuthToken;
 
-    private UUID authCode;
-
-    public UUID getAuthCode() {
-        return authCode;
-    }
-
-    public void setAuthCode(UUID authCode) {
-        this.authCode = authCode;
+    private Date authTokenExpires;
+    
+    public PublicKey getPublicKeyObject() throws Exception {
+        byte[] byteKey = Base64.getDecoder().decode(getPublicKey().getBytes());
+        X509EncodedKeySpec X590publicKey = new X509EncodedKeySpec(byteKey);
+        KeyFactory kf = KeyFactory.getInstance("RSA");
+        return kf.generatePublic(X590publicKey);
     }
 
     public int getId() {
@@ -61,5 +64,21 @@ public class User {
 
     public void setPublicKey(String publicKey) {
         this.publicKey = publicKey;
+    }
+
+    public String getAuthToken() {
+        return AuthToken;
+    }
+
+    public void setAuthToken(String authToken) {
+        AuthToken = authToken;
+    }
+
+    public Date getAuthTokenExpires() {
+        return authTokenExpires;
+    }
+
+    public void setAuthTokenExpires(Date authTokenExpires) {
+        this.authTokenExpires = authTokenExpires;
     }
 }

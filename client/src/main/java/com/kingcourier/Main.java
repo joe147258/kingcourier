@@ -1,5 +1,7 @@
 package com.kingcourier;
 
+import com.kingcourier.configuration.ConfigManager;
+
 public class Main {
 
     public static User currentUser;
@@ -17,6 +19,6 @@ public class Main {
                 "\n----- Welcome to KingCourier Messenger -----");
         currentUser = ConfigManager.initConfig();
         System.out.println("Sending Authentication request...");
-        Authenticator.authenticateUser();
+        Authenticator.getAuthToken();
     }
 }

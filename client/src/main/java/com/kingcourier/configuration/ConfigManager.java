@@ -1,7 +1,10 @@
-package com.kingcourier;
+package com.kingcourier.configuration;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.kingcourier.Registration;
+import com.kingcourier.User;
 
 import java.io.*;
+import java.util.HashMap;
 import java.util.Scanner;
 
 public final class ConfigManager {
@@ -30,7 +33,8 @@ public final class ConfigManager {
             ObjectMapper mapper = new ObjectMapper();
             User user = null;
             try {
-                user = mapper.readValue(new File(USER_FILE_PATH), User.class);
+                HashMap<String, String> userTemplate = mapper.readValue(new File(USER_FILE_PATH), HashMap.class);
+                user = new User(userTemplate.get("username"), userTemplate.get("publickey"), userTemplate.get("privatekey"), userTemplate.get("authtoken"));
             } catch (IOException e) {
                 System.out.println("Error reading userfile:\n" + e.getMessage());
             }
